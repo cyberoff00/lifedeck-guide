@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆瓣书影音导出教程 · LifeDeck</title>
+<style>
+  :root {
+    --ink: #16130f;
+    --ink-raised: #241f19;
+    --paper: #ece4d6;
+    --paper-dim: #a89e8c;
+    --ochre: #d9a441;
+    --moss: #8aa578;
+    --clay: #c46d4e;
+    --line: rgba(236, 228, 214, 0.14);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font: 16px/1.75 -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
+  h1 {
+    font-family: "Songti SC", "Noto Serif SC", Georgia, serif;
+    font-size: 34px; line-height: 1.3; margin-bottom: 12px;
+  }
+  .sub { color: var(--paper-dim); font-size: 14px; margin-bottom: 40px; }
+  .sub b { color: var(--ochre); font-weight: 600; }
+
+  .step {
+    display: flex; gap: 16px; margin-bottom: 36px;
+  }
+  .num {
+    flex: none; width: 32px; height: 32px; border-radius: 50%;
+    border: 1px solid var(--ochre); color: var(--ochre);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-variant-numeric: tabular-nums; margin-top: 2px;
+  }
+  .step h2 {
+    font-family: "Songti SC", "Noto Serif SC", Georgia, serif;
+    font-size: 20px; margin-bottom: 8px;
+  }
+  .step p { color: var(--paper-dim); font-size: 15px; margin-bottom: 8px; }
+  .step p strong { color: var(--paper); font-weight: 600; }
+  .step .body { min-width: 0; flex: 1; }
+
+  a.btn {
+    display: inline-block; margin: 4px 8px 12px 0; padding: 8px 16px;
+    border-radius: 10px; background: var(--ink-raised);
+    border: 1px solid var(--line);
+    color: var(--ochre); text-decoration: none; font-size: 14px;
+  }
+  a.btn:active { opacity: 0.7; }
+  a.inline { color: var(--ochre); text-decoration: none; border-bottom: 1px dashed var(--ochre); }
+
+  code {
+    font: 13px ui-monospace, "SF Mono", Menlo, monospace;
+    background: var(--ink-raised); border-radius: 6px; padding: 2px 7px;
+    color: var(--paper);
+  }
+  figure { margin: 14px 0 4px; }
+  figure img {
+    width: 100%; border-radius: 12px;
+    border: 1px solid var(--line); display: block;
+  }
+  figcaption { color: var(--paper-dim); font-size: 12px; margin-top: 8px; }
+
+  .callout {
+    background: var(--ink-raised); border-radius: 14px;
+    padding: 16px 18px; margin: 12px 0; font-size: 14px; color: var(--paper-dim);
+  }
+  .callout.good { border-left: 3px solid var(--moss); }
+  .callout.warn { border-left: 3px solid var(--clay); }
+  .callout strong { color: var(--paper); }
+
+  .faq { margin-top: 56px; border-top: 1px solid var(--line); padding-top: 32px; }
+  .faq h2 {
+    font-family: "Songti SC", "Noto Serif SC", Georgia, serif;
+    font-size: 24px; margin-bottom: 20px;
+  }
+  details { margin-bottom: 14px; background: var(--ink-raised); border-radius: 12px; padding: 14px 18px; }
+  summary { cursor: pointer; font-size: 15px; }
+  details p { color: var(--paper-dim); font-size: 14px; margin-top: 10px; }
+  footer { margin-top: 64px; color: var(--paper-dim); font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>把豆瓣书影音搬进 LifeDeck</h1>
+  <p class="sub">
+    全程在<b>电脑浏览器</b>里完成，大约五分钟。导出的是一个 ZIP 资源包
+    （记录 + 封面图），传到 iPhone 后在 LifeDeck 里一键导入，封面直接带入，无需联网匹配。
+  </p>
+
+  <div class="step">
+    <div class="num">1</div>
+    <div class="body">
+      <h2>安装浏览器脚本管理器</h2>
+      <p>在电脑上的 Chrome / Edge 安装 <strong>Violentmonkey（暴力猴）</strong>扩展。已装有 Tampermonkey（油猴）的可以跳过这一步。</p>
+      <a class="btn" href="https://violentmonkey.github.io" target="_blank">安装 Violentmonkey ↗</a>
+      <figure>
+        <img src="img/step1.png" alt="安装 Violentmonkey" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Violentmonkey 安装页</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="num">2</div>
+    <div class="body">
+      <h2>安装豆瓣导出脚本</h2>
+      <p>打开脚本页面，点击<strong>「安装此脚本」</strong>，在弹出的脚本管理器窗口里确认安装。</p>
+      <a class="btn" href="https://greasyfork.org/scripts/439867" target="_blank">安装导出脚本 ↗</a>
+      <figure>
+        <img src="img/step2.png" alt="安装导出脚本" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Greasy Fork 脚本页，点「安装此脚本」</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="num">3</div>
+    <div class="body">
+      <h2>打开自己的豆瓣主页</h2>
+      <p>登录豆瓣后进入个人主页，点击页面里的<strong>「书影音游戏汇总」</strong>入口进入汇总页。</p>
+      <a class="btn" href="https://www.douban.com/mine/" target="_blank">打开我的豆瓣 ↗</a>
+      <figure>
+        <img src="img/step3.png" alt="书影音游戏汇总入口" onerror="this.closest('figure').style.display='none'">
+        <figcaption>个人主页上的「书影音游戏汇总」入口</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="num">4</div>
+    <div class="body">
+      <h2>选择分类，打开导出</h2>
+      <p>在汇总页选择要导出的分类（<strong>读书 / 电影 / 音乐</strong>），点击<strong>「导出」</strong>按钮打开导出弹窗。</p>
+      <figure>
+        <img src="img/step4.png" alt="导出按钮" onerror="this.closest('figure').style.display='none'">
+        <figcaption>汇总页的导出入口</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="num">5</div>
+    <div class="body">
+      <h2>勾选封面资源，开始抓取</h2>
+      <p>字段保持默认即可（标题、个人评分、标记日期、短评都会用到）。<strong>务必勾上「同时导出海报/封面资源」</strong>——这是封面能带进 LifeDeck 的关键。条目很多时可以用「仅导出指定页码范围」分批导。然后点<strong>「开始抓取」</strong>，等待完成。</p>
+      <div class="callout warn">
+        不勾封面资源的话只会得到 JSON / Excel 数据文件——也能导入 LifeDeck，
+        只是封面需要在导入后联网匹配。
+      </div>
+      <figure>
+        <img src="img/step5.png" alt="导出弹窗" onerror="this.closest('figure').style.display='none'">
+        <figcaption>导出弹窗：勾上「同时导出海报/封面资源」</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="num">6</div>
+    <div class="body">
+      <h2>下载完整资源包 ZIP</h2>
+      <p>抓取完成后，点击<strong>「下载封面 ZIP」</strong>保存完整资源包。包内含 <code>covers/</code>、<code>data/*.json</code>、<code>data/*.xlsx</code> 和 <code>cover-manifest.json</code>。</p>
+      <figure>
+        <img src="img/step6.png" alt="下载完整资源包" onerror="this.closest('figure').style.display='none'">
+        <figcaption>完成后下载完整资源包</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="num">7</div>
+    <div class="body">
+      <h2>把 ZIP 传到 iPhone</h2>
+      <p><strong>不要解压</strong>，把 ZIP 原样传到手机：隔空投送（AirDrop）、iCloud 云盘、微信文件传输助手都可以。收到后存到「文件」App 里。</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="num">8</div>
+    <div class="body">
+      <h2>在 LifeDeck 里导入</h2>
+      <p>打开 LifeDeck → 设置 → <strong>Import</strong>，选择刚才的 ZIP。App 会自动识别分类、列出条目预览，确认后一键导入——评分、标记日期、短评、封面全部带入。</p>
+      <div class="callout good">
+        「想看 / 想读」不会被导入（它们不是记录）；重复导入同一个包也不会产生重复条目。
+      </div>
+    </div>
+  </div>
+
+  <div class="faq">
+    <h2>常见问题</h2>
+    <details>
+      <summary>条目太多，抓取很慢或中断了怎么办？</summary>
+      <p>用导出弹窗里的「仅导出指定页码范围」分批抓取、分批下载 ZIP，在 LifeDeck 里依次导入即可——已导入的条目会自动跳过，不会重复。</p>
+    </details>
+    <details>
+      <summary>部分封面没有带进来？</summary>
+      <p>个别条目豆瓣本身就没有封面图，或抓取时下载失败。导入完成后 LifeDeck 会提示「Match N covers」，点一下即可联网补齐；也可以进入单个条目页手动搜索或上传封面。</p>
+    </details>
+    <details>
+      <summary>只有 CSV / Excel / JSON 文件，没有 ZIP，能导入吗？</summary>
+      <p>可以。LifeDeck 同样支持单独的 .csv / .xlsx / .json 数据文件（包括 Letterboxd、Goodreads 的官方导出），只是这种方式不含封面，需要导入后联网匹配。</p>
+    </details>
+    <details>
+      <summary>剧集会被识别吗？</summary>
+      <p>会。标题里带「第 X 季 / Season N」的条目在导入电影分类时会自动归为剧集。</p>
+    </details>
+  </div>
+
+  <footer>LifeDeck · 导出的数据只属于你自己</footer>
+</div>
+</body>
+</html>
