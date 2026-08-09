@@ -114,6 +114,9 @@
     <div class="body">
       <h2>安装豆瓣导出脚本</h2>
       <p>打开脚本页面，点击<strong>「安装此脚本」</strong>，在弹出的脚本管理器窗口里确认安装。</p>
+      <div class="callout good">
+        装好即生效，<strong>不需要任何设置</strong>——之后打开豆瓣的记录列表页时，脚本会自动运行。
+      </div>
       <a class="btn" href="https://greasyfork.org/scripts/439867" target="_blank">安装导出脚本 ↗</a>
       <figure>
         <img src="img/step2.png" alt="安装导出脚本" onerror="this.closest('figure').style.display='none'">
@@ -125,12 +128,14 @@
   <div class="step">
     <div class="num">3</div>
     <div class="body">
-      <h2>打开自己的豆瓣主页</h2>
-      <p>登录豆瓣后进入个人主页，点击页面里的<strong>「书影音游戏汇总」</strong>入口进入汇总页。</p>
-      <a class="btn" href="https://www.douban.com/mine/" target="_blank">打开我的豆瓣 ↗</a>
+      <h2>打开你的「看过 / 读过 / 听过」列表</h2>
+      <p>登录豆瓣后，打开自己的记录列表页——个人主页里的「我看过的电影」「读过的书」等，或直接点下面的链接：</p>
+      <a class="btn" href="https://movie.douban.com/mine?status=collect" target="_blank">看过的电影 ↗</a>
+      <a class="btn" href="https://book.douban.com/mine?status=collect" target="_blank">读过的书 ↗</a>
+      <a class="btn" href="https://music.douban.com/mine?status=collect" target="_blank">听过的音乐 ↗</a>
       <figure>
-        <img src="img/step3.png" alt="书影音游戏汇总入口" onerror="this.closest('figure').style.display='none'">
-        <figcaption>个人主页上的「书影音游戏汇总」入口</figcaption>
+        <img src="img/step3.png" alt="看过的电影列表页" onerror="this.closest('figure').style.display='none'">
+        <figcaption>「我看过的电影」列表页</figcaption>
       </figure>
     </div>
   </div>
@@ -138,11 +143,14 @@
   <div class="step">
     <div class="num">4</div>
     <div class="body">
-      <h2>选择分类，打开导出</h2>
-      <p>在汇总页选择要导出的分类（<strong>读书 / 电影 / 音乐</strong>），点击<strong>「导出」</strong>按钮打开导出弹窗。</p>
+      <h2>在自动出现的浮窗里点导出</h2>
+      <p>列表页打开后，页面上会<strong>自动出现「书影音游戏汇总」小浮窗</strong>——这就是导出工具，不用去别处找。点击浮窗里的<strong>「导出」</strong>，弹出导出设置窗口。</p>
+      <div class="callout warn">
+        没看到浮窗？检查 Violentmonkey 图标是否为彩色（扩展已启用）、脚本是否处于开启状态，然后刷新页面。
+      </div>
       <figure>
-        <img src="img/step4.png" alt="导出按钮" onerror="this.closest('figure').style.display='none'">
-        <figcaption>汇总页的导出入口</figcaption>
+        <img src="img/step4.png" alt="列表页上自动出现的导出浮窗" onerror="this.closest('figure').style.display='none'">
+        <figcaption>列表页自动出现的「书影音游戏汇总」浮窗</figcaption>
       </figure>
     </div>
   </div>
